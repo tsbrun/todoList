@@ -16,6 +16,16 @@ export default function App() {
     setTask();
   }
 
+  const completeTask = (index) => {
+    let tasksCopy = [...tasks];
+    tasksCopy.splice(index, 1);
+    updateTasks(tasksCopy);
+  }
+
+  // const removeTask = () => {
+  //   //
+  // }
+
   return (
     <View style={styles.container}>
 
@@ -25,8 +35,12 @@ export default function App() {
 
         <View style={styles.tasks}>
           {/* This is where the tasks will go */}
-          { tasks.map( (t, i) => {
-              return <Task key={i} desc={t} /> 
+          { tasks.map( (text, index) => {
+              return (
+                <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                  <Task desc={text} />
+                </TouchableOpacity>
+              )
             }) 
           }
         </View>
@@ -42,7 +56,7 @@ export default function App() {
         style={styles.input} 
         placeholder="todo desc" 
         value={task}
-        onChangeText={desc => setTask(desc)}
+        onChangeText={text => setTask(text)}
         />
 
         <TouchableOpacity onPress={() => handleAddTask()}>
