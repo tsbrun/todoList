@@ -11,7 +11,6 @@ export default function App() {
   ])
 
   const handleAddTask = () => {
-    // create new array so as not to mutate state
     updateTasks([...tasks, task]);
     setTask();
   }
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
     bottom: 60,
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around", // space on all sides of each element; separates them from each other and the window
+    justifyContent: "space-around",
     alignItems: "center",
   },
   input: {
