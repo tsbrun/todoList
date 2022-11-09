@@ -12,8 +12,7 @@ export default function App() {
 
   const handleAddTask = () => {
     // create new array so as not to mutate state
-    let newTaskArr = [...tasks, task];
-    updateTasks(newTaskArr);
+    updateTasks([...tasks, task]);
     setTask();
   }
 
@@ -47,7 +46,7 @@ export default function App() {
         onChangeText={desc => setTask(desc)}
         />
 
-        <TouchableOpacity onPress={() => handleAddTask()} >
+        <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
