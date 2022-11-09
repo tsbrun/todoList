@@ -1,7 +1,26 @@
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Task from "./components/Task";
 
 export default function App() {
+  const [task, setTask] = useState();
+
+  const [tasks, updateTasks] = useState([
+   "My first task",
+   "Task 2"
+  ])
+
+  function handleSubmit() {
+    // create new array so as not to mutate state
+    let newTaskArr = [...tasks, task];
+    updateTasks(newTaskArr);
+    setTask();
+  }
+
+  let taskArr = tasks.map( (t, i) => {
+    return <Task key={i} desc={t} /> 
+  })
+
   return (
     <View style={styles.container}>
 
@@ -11,8 +30,7 @@ export default function App() {
 
         <View style={styles.tasks}>
           {/* This is where the tasks will go */}
-          <Task desc={"My first task"} />
-          <Task desc={"Task 2"} />
+          { taskArr }
         </View>
         
       </View>
@@ -22,7 +40,13 @@ export default function App() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
       >
-        <TextInput style={styles.input} placeholder="todo desc" />
+        <TextInput 
+        style={styles.input} 
+        placeholder="todo desc" 
+        value={task}
+        onChangeText={desc => setTask(desc)}
+        onSubmitEditing={() => handleSubmit()}
+        />
 
         <TouchableOpacity >
           <View style={styles.addWrapper}>
