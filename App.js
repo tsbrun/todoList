@@ -18,6 +18,8 @@ export default function App() {
 
   const completeTask = () => {
     let tasksCopy = [...tasks];
+    // blue box is checked
+    // task is deleted
     // tasksCopy.splice(index, 1);
     // updateTasks(tasksCopy);
   }
