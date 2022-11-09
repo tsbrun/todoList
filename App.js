@@ -10,7 +10,7 @@ export default function App() {
    "Task 2"
   ])
 
-  function handleSubmit() {
+  const handleAddTask = () => {
     // create new array so as not to mutate state
     let newTaskArr = [...tasks, task];
     updateTasks(newTaskArr);
@@ -45,10 +45,9 @@ export default function App() {
         placeholder="todo desc" 
         value={task}
         onChangeText={desc => setTask(desc)}
-        onSubmitEditing={() => handleSubmit()}
         />
 
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => handleAddTask()} >
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
