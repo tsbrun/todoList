@@ -20,15 +20,15 @@ export default function App() {
     let tasksCopy = [...tasks];
     // blue box is checked
     // task is deleted
-    // tasksCopy.splice(index, 1);
-    // updateTasks(tasksCopy);
-  }
-
-  const removeTask = (index) => {
-    let tasksCopy = [...tasks];
     tasksCopy.splice(index, 1);
     updateTasks(tasksCopy);
   }
+
+  // const removeTask = (index) => {
+  //   let tasksCopy = [...tasks];
+  //   tasksCopy.splice(index, 1);
+  //   updateTasks(tasksCopy);
+  // }
 
   // const dragTaskAnimation = () => {
   //   //
@@ -36,38 +36,43 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1
+        }}
+        keyboardShouldPersistTaps='handled'
+      >
+        {/* Today's Tasks Section */}
+        <View style={styles.tasksWrapper}>
+          <Text style={styles.sectionTitle}>Today's tasks</Text>
 
-      {/* Today's Tasks Section */}
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's tasks</Text>
-
-        <View style={styles.tasks}>
-          {/* This is where the tasks will go */}
-          { tasks.map( (text, index) => {
-              return (
-                // need an animation for onScrollBeginDrag
-                <ScrollView key={index} onScrollEndDrag={() => removeTask(index)}>
-                  <TouchableOpacity onPress={() => completeTask()}>
-                    <Task desc={text} />
-                  </TouchableOpacity>
-                </ScrollView>
-              )
-            }) 
-          }
-        </View>
-        
-      </View>
+          <View style={styles.tasks}>
+            {/* This is where the tasks will go */}
+            { tasks.map( (text, index) => {
+                return (
+                  // need an animation for onScrollBeginDrag
+                  // <ScrollView key={index} onScrollEndDrag={() => removeTask(index)}>
+                    <TouchableOpacity onPress={() => completeTask()}>
+                      <Task desc={text} />
+                    </TouchableOpacity>
+                  // </ScrollView>
+                )
+              }) 
+            }
+          </View>
+        </View> 
+      </ScrollView>
 
       {/* Write a task */}
       <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.writeTaskWrapper}
       >
         <TextInput 
-        style={styles.input} 
-        placeholder="todo desc" 
-        value={task}
-        onChangeText={text => setTask(text)}
+          style={styles.input} 
+          placeholder="todo desc" 
+          value={task}
+          onChangeText={text => setTask(text)}
         />
 
         <TouchableOpacity onPress={() => handleAddTask()}>
