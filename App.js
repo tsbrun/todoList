@@ -16,7 +16,7 @@ export default function App() {
     setTask();
   }
 
-  const completeTask = () => {
+  const completeTask = (index) => {
     let tasksCopy = [...tasks];
     // blue box is checked
     // task is deleted
@@ -51,8 +51,8 @@ export default function App() {
             { tasks.map( (text, index) => {
                 return (
                   // need an animation for onScrollBeginDrag
-                  // <ScrollView key={index} onScrollEndDrag={() => removeTask(index)}>
-                    <TouchableOpacity onPress={() => completeTask()}>
+                  // <ScrollView onScrollEndDrag={() => removeTask(index)}>
+                    <TouchableOpacity key={index} onPress={() => completeTask(index)}>
                       <Task desc={text} />
                     </TouchableOpacity>
                   // </ScrollView>
