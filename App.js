@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View, TextInput, Keyboard } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View, TextInput, Keyboard, ScrollView } from 'react-native';
 import Task from "./components/Task";
 
 export default function App() {
@@ -16,13 +16,19 @@ export default function App() {
     setTask();
   }
 
-  const completeTask = (index) => {
+  const completeTask = () => {
+    let tasksCopy = [...tasks];
+    // tasksCopy.splice(index, 1);
+    // updateTasks(tasksCopy);
+  }
+
+  const removeTask = (index) => {
     let tasksCopy = [...tasks];
     tasksCopy.splice(index, 1);
     updateTasks(tasksCopy);
   }
 
-  // const removeTask = () => {
+  // const dragTaskAnimation = () => {
   //   //
   // }
 
@@ -37,9 +43,12 @@ export default function App() {
           {/* This is where the tasks will go */}
           { tasks.map( (text, index) => {
               return (
-                <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                  <Task desc={text} />
-                </TouchableOpacity>
+                // need an animation for onScrollBeginDrag
+                <ScrollView key={index} onScrollEndDrag={() => removeTask(index)}>
+                  <TouchableOpacity onPress={() => completeTask()}>
+                    <Task desc={text} />
+                  </TouchableOpacity>
+                </ScrollView>
               )
             }) 
           }
